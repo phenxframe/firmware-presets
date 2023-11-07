@@ -1,0 +1,325 @@
+{
+  "majorVersion": 1,
+  "minorVersion": 0,
+  "settings": {
+    "MetapropertyDirective": "#$",
+    "PresetCategories": {
+      "TUNE": "TUNE",
+      "RATES": "RATES",
+      "OSD": "OSD",
+      "VTX": "VTX",
+      "LEDS": "LEDS",
+      "MODES": "MODES",
+      "FILTERS": "FILTERS",
+      "RC_LINK": "RC_LINK",
+      "BNF": "BNF",
+      "OTHER": "OTHER"
+    },
+    "PresetCategoriesPriorities": {
+      "TUNE": 1000000000000,
+      "RATES": 10000,
+      "OSD": 0,
+      "VTX": 1000000,
+      "LEDS": 0,
+      "MODES": 0,
+      "RC_SMOOTHING": 100000000,
+      "FILTERS": 100,
+      "RC_LINK": 10000000000,
+      "BNF": 0,
+      "OTHER": 0
+    },
+    "MetadataTypes": {
+      "STRING": "STRING",
+      "STRING_ARRAY": "STRING_ARRAY",
+      "PRESET_CATEGORY": "PRESET_CATEGORY",
+      "FILE_PATH": "FILE_PATH",
+      "BOOLEAN": "BOOLEAN",
+      "WORDS_ARRAY": "WORDS_ARRAY",
+      "FILE_PATH_ARRAY": "FILE_PATH_ARRAY",
+      "PRESET_STATUS": "PRESET_STATUS",
+      "PRIORITY": "PRIORITY",
+      "PARSER": "PARSER"
+    },
+    "OptionsDirectives": {
+      "OPTION_DIRECTIVE": "option",
+      "BEGIN_OPTION_DIRECTIVE": "option begin",
+      "END_OPTION_DIRECTIVE": "option end",
+      "OPTION_CHECKED": "(checked)",
+      "OPTION_UNCHECKED": "(unchecked)",
+      "BEGIN_OPTION_GROUP_DIRECTIVE": "option_group begin",
+      "END_OPTION_GROUP_DIRECTIVE": "option_group end"
+    },
+    "PresetStatusEnum": [
+      "OFFICIAL",
+      "COMMUNITY",
+      "EXPERIMENTAL"
+    ],
+    "ParserEnum": [
+      "TEXT",
+      "MARKED"
+    ],
+    "presetsDir": "presets",
+    "presetsFileEncoding": "utf-8",
+    "presetsFileMetadata": {
+      "title": {
+        "type": "STRING",
+        "optional": false
+      },
+      "firmware_version": {
+        "type": "STRING_ARRAY",
+        "optional": false
+      },
+      "category": {
+        "type": "PRESET_CATEGORY",
+        "optional": false
+      },
+      "status": {
+        "type": "PRESET_STATUS",
+        "optional": false
+      },
+      "author": {
+        "type": "STRING",
+        "optional": true
+      },
+      "description": {
+        "type": "STRING_ARRAY",
+        "optional": true
+      },
+      "include": {
+        "type": "FILE_PATH_ARRAY",
+        "optional": true
+      },
+      "keywords": {
+        "type": "WORDS_ARRAY",
+        "optional": true
+      },
+      "hidden": {
+        "type": "BOOLEAN",
+        "optional": true
+      },
+      "discussion": {
+        "type": "STRING",
+        "optional": true
+      },
+      "warning": {
+        "type": "STRING",
+        "optional": true
+      },
+      "disclaimer": {
+        "type": "STRING",
+        "optional": true
+      },
+      "include_warning": {
+        "type": "FILE_PATH_ARRAY",
+        "optional": true
+      },
+      "include_disclaimer": {
+        "type": "FILE_PATH_ARRAY",
+        "optional": true
+      },
+      "priority": {
+        "type": "PRIORITY",
+        "optional": true
+      },
+      "force_options_review": {
+        "type": "BOOLEAN",
+        "optional": true
+      },
+      "parser": {
+        "type": "PARSER",
+        "optional": true
+      }
+    }
+  },
+  "uniqueValues": {
+    "firmware_version": [
+      "4.3",
+      "4.4",
+      "4.5"
+    ],
+    "category": [
+      "FILTERS",
+      "TUNE"
+    ],
+    "author": [
+      "Betaflight",
+      "Feisar @androidgx"
+    ],
+    "keywords": [
+      "5 inch",
+      "5\"",
+      "6S",
+      "basic",
+      "default",
+      "defaults",
+      "filter",
+      "filters",
+      "Freestyle",
+      "PhenXFrame",
+      "pid",
+      "reset",
+      "tune"
+    ]
+  },
+  "presets": [
+    {
+      "fullPath": "presets/4.3/filters/defaults.txt",
+      "hash": "94dd6e400f67d5bde88bf5a6952c83255db887da83dcc9b247a04ffac43f9cd2",
+      "title": "Default 4.3 Filter settings",
+      "firmware_version": [
+        "4.3",
+        "4.4"
+      ],
+      "category": "FILTERS",
+      "status": "OFFICIAL",
+      "keywords": [
+        "defaults",
+        "filter",
+        "filters",
+        "reset"
+      ],
+      "author": "Betaflight",
+      "priority": 100
+    },
+    {
+      "fullPath": "presets/4.3/tune/defaults.txt",
+      "hash": "78f827d0a9c615a3be454362b7bfe9751ddd981ed23cd07c0c1f79c4415dace9",
+      "title": "TUNE defaults",
+      "firmware_version": [
+        "4.3"
+      ],
+      "category": "TUNE",
+      "status": "OFFICIAL",
+      "keywords": [
+        "defaults",
+        "reset",
+        "tune",
+        "pid",
+        "basic",
+        "default"
+      ],
+      "author": "Betaflight",
+      "priority": 0
+    },
+    {
+      "fullPath": "presets/4.3/tune/defaults_tune_filters.txt",
+      "hash": "0e8fec5c296922e0a46e47490d8b93a75dbcdc0dec49dd3973ca355b6d0a5601",
+      "title": "Defaults: TUNE + FILTERS",
+      "firmware_version": [
+        "4.3"
+      ],
+      "category": "TUNE",
+      "status": "OFFICIAL",
+      "keywords": [
+        "defaults",
+        "reset",
+        "tune",
+        "pid",
+        "default",
+        "filters"
+      ],
+      "author": "Betaflight",
+      "priority": 1000000000000
+    },
+    {
+      "fullPath": "presets/4.4/tune/defaults.txt",
+      "hash": "913b78f0010561a8e935f951493cb4bd7313493a36a48a7b9205a69e1350524f",
+      "title": "Betaflight 4.4 TUNE defaults",
+      "firmware_version": [
+        "4.4"
+      ],
+      "category": "TUNE",
+      "status": "OFFICIAL",
+      "keywords": [
+        "defaults",
+        "reset",
+        "tune",
+        "pid",
+        "basic",
+        "default"
+      ],
+      "author": "Betaflight",
+      "priority": 0
+    },
+    {
+      "fullPath": "presets/4.4/tune/defaults_tune_filters.txt",
+      "hash": "71c03ba3f65b9bb3aff5382c458bc6322ea30d97d20cf2bb3b8e2decfc080551",
+      "title": "Defaults: TUNE + FILTERS",
+      "firmware_version": [
+        "4.4"
+      ],
+      "category": "TUNE",
+      "status": "OFFICIAL",
+      "keywords": [
+        "defaults",
+        "reset",
+        "tune",
+        "pid",
+        "default",
+        "filters"
+      ],
+      "author": "Betaflight",
+      "priority": 1000000000000
+    },
+    {
+      "fullPath": "presets/4.4/tune/PhenXFrame/Phen-X-Frame-FR.txt",
+      "hash": "0ec86c6e7676398208b67e6cb7e285298875a534c5bd31ff8595abe7f12982e3",
+      "title": "Phen X Frame 5\" (FR)",
+      "firmware_version": [
+        "4.4"
+      ],
+      "category": "TUNE",
+      "status": "EXPERIMENTAL",
+      "keywords": [
+        "PhenXFrame",
+        "5\"",
+        "5 inch",
+        "6S",
+        "Freestyle"
+      ],
+      "author": "Feisar @androidgx",
+      "force_options_review": true,
+      "priority": 1000000000000
+    },
+    {
+      "fullPath": "presets/4.4/tune/PhenXFrame/Phen-X-Frame.txt",
+      "hash": "a439327b3ad4ac175284cfe3cea13195b47c134b78d7108e6cbecc53293d57f3",
+      "title": "Phen X Frame 5\"",
+      "firmware_version": [
+        "4.4"
+      ],
+      "category": "TUNE",
+      "status": "EXPERIMENTAL",
+      "keywords": [
+        "PhenXFrame",
+        "5\"",
+        "5 inch",
+        "6S",
+        "Freestyle"
+      ],
+      "author": "Feisar @androidgx",
+      "force_options_review": true,
+      "priority": 1000000000000
+    },
+    {
+      "fullPath": "presets/4.5/tune/defaults.txt",
+      "hash": "ecc8a3fc34041fe76c3f552181c84595905902fe07bd1418e4f8b221724182da",
+      "title": "Betaflight 4.5 TUNE defaults",
+      "firmware_version": [
+        "4.5"
+      ],
+      "category": "TUNE",
+      "status": "OFFICIAL",
+      "keywords": [
+        "defaults",
+        "reset",
+        "tune",
+        "pid",
+        "basic",
+        "default"
+      ],
+      "author": "Betaflight",
+      "priority": 0
+    }
+  ]
+}
