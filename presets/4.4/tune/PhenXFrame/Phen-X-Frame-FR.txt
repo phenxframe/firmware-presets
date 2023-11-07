@@ -1,0 +1,167 @@
+#$ TITLE: Phen X Frame 5" (FR)
+#$ FIRMWARE_VERSION: 4.4
+#$ CATEGORY: TUNE
+#$ STATUS: EXPERIMENTAL
+#$ KEYWORDS: PhenXFrame, 5", 5 inch, 6S, Freestyle
+#$ AUTHOR: Feisar @androidgx
+#$ FORCE_OPTIONS_REVIEW: TRUE
+
+#$ PARSER: MARKED
+
+#$ DESCRIPTION: ## Preset freestyle officiel pour le Phen X Frame 5"
+#$ DESCRIPTION:
+#$ DESCRIPTION: <br>La Phen X Frame est une frame pour drone FPV initialement destinée au freestyle.
+#$ DESCRIPTION: <br>Plus d’informations sur notre page <a href="https://www.instagram.com/phen_x_frame">Instagram</a>.
+#$ DESCRIPTION: <br>Retrouvez également notre page <a href="https://www.printables.com/fr/@PhenXFrame_1396520">Printables</a>.
+#$ DESCRIPTION: 
+#$ DESCRIPTION:
+#$ DESCRIPTION: ### <br><b>Liste des options disponibles dans ce preset :</b>
+#$ DESCRIPTION:
+#$ DESCRIPTION: * Choix du protocole pour les ESCs & fréquence boucle PIDs.
+#$ DESCRIPTION: * Choix des niveaux de PIDs & filtrage.
+#$ DESCRIPTION: * Choix des optimisations diverses.
+#$ DESCRIPTION: 
+#$ DESCRIPTION:
+#$ DESCRIPTION: ### <br><b>Recommandations :</b>
+#$ DESCRIPTION:
+#$ DESCRIPTION: * Pour de meilleures performances: toujours appliquer le bon preset approprié selon votre lien Radio.
+#$ DESCRIPTION: * Si vous n'utilisez pas de <b>caméra HD</b>: n'oubliez pas de <b>centrer la lipo</b> sur votre top plate (afin d'obtenir un centre de gravité optimal).
+#$ DESCRIPTION: * L'usage du <b>Filtre RPM</b> est <b>OBLIGATOIRE</b> pour ce preset ! (si votre ESC est en 'BLHeli_S', merci de le flasher sous <a href="https://esc-configurator.com/">Bluejay</a> afin de pouvoir en bénéficier.
+#$ DESCRIPTION: * Choisissez le protocole des ESCs et la fréquence de la boucle PID en fonction de votre <b>gyro</b>, du <b>microcontrolleur</b> de votre FC (attention: cocher UN seul choix à la fois !).
+#$ DESCRIPTION: * En fonction de la qualité de montage, <b>2 niveaux de filtrage et PIDs</b> sont disponibles :
+#$ DESCRIPTION: <br>- Standard: le degré de filtrage/PIDs recommandé (et appliqué) par défaut.
+#$ DESCRIPTION: <br>- Agressif: performances extrêmes (pour build très sain).
+#$ DESCRIPTION:
+#$ DESCRIPTION:
+#$ DESCRIPTION: <br>Si vous avez le moindre problème, merci de joindre notre discord pour nous faire part de toute suggestion ou problème rencontré.
+#$ DESCRIPTION: <br>Nous serons ravis de vous apporter notre aide.
+#$ DESCRIPTION:
+#$ DESCRIPTION: <br>~ Discord : https://discord.com/invite/GutZA24r7Z
+#$ DESCRIPTION:
+#$ DESCRIPTION: <br>Tuning réalisé et maintenu par <b>Feisar</b> (team <b>Phen X Frame</b>).
+
+# -- Reset PIDs and Filters to default --
+#$ INCLUDE: presets/4.4/tune/defaults_tune_filters.txt
+
+#$ OPTION_GROUP BEGIN: CHOISIR <b>UN</b> PROTOCOLE ESC & FREQ BOUCLE PIDs :
+
+    #$ OPTION BEGIN (UNCHECKED): DSHOT600 - 8Khz (F7 & plus + gyro 8K)
+		
+		set pid_process_denom = 1
+		set motor_pwm_protocol = DSHOT600
+                
+    #$ OPTION END
+
+    #$ OPTION BEGIN (UNCHECKED): DSHOT300 - 4Khz (F4 et gyro 8K)
+	
+		set pid_process_denom = 2
+		set motor_pwm_protocol = DSHOT300
+        
+    #$ OPTION END
+	
+	#$ OPTION BEGIN (UNCHECKED): DSHOT300 - 3.2Khz (gyro BMI)
+	
+		set pid_process_denom = 1
+		set motor_pwm_protocol = DSHOT300
+        
+    #$ OPTION END
+
+#$ OPTION_GROUP END
+
+
+# ------[ PIDs Standard ]------
+
+set simplified_d_gain = 115
+set simplified_dmax_gain = 0
+set simplified_feedforward_gain = 50
+set simplified_pi_gain = 130
+set simplified_pitch_d_gain = 105
+set simplified_pitch_pi_gain = 105
+
+
+# ------[ Filtrage Standard ]------
+
+set dyn_notch_max_hz = 450
+set dyn_notch_min_hz = 120
+set gyro_lpf1_dyn_max_hz = 0
+set gyro_lpf1_dyn_min_hz = 0
+set gyro_lpf1_static_hz = 0
+set gyro_lpf2_static_hz = 0
+set simplified_dterm_filter_multiplier = 130
+set simplified_gyro_filter = OFF
+set yaw_lowpass_hz = 0
+
+#$ OPTION_GROUP BEGIN: TUNING :
+
+    #$ OPTION BEGIN (CHECKED): Réglages filtre RPM (recommandé)
+
+		set dshot_bidir = ON
+		set dyn_notch_count = 1
+		set dyn_notch_q = 500
+		set motor_poles = 14
+		set rpm_filter_fade_range_hz = 50
+		set rpm_filter_harmonics = 3
+		set rpm_filter_min_hz = 100
+		set rpm_filter_q = 500
+
+    #$ OPTION END
+	
+    #$ OPTION BEGIN (UNCHECKED): Cocher si gyro BMI/ICM
+
+		set gyro_lpf2_static_hz = 650
+
+    #$ OPTION END
+
+	#$ OPTION BEGIN (UNCHECKED): PIDs 'AGRESSIF'
+ 
+		set simplified_master_multiplier = 110
+
+    #$ OPTION END
+
+	#$ OPTION BEGIN (UNCHECKED): Filtrage 'AGRESSIF' (build sain requis)
+	
+		set simplified_dterm_filter_multiplier = 140
+        set rpm_filter_harmonics = 2
+		set dyn_notch_min_hz = 150
+
+    #$ OPTION END 
+
+#$ OPTION_GROUP END
+
+#$ OPTION_GROUP BEGIN: OPTIMISATIONS DIVERSES :
+
+    #$ OPTION BEGIN (CHECKED): Libérer les performances du YAW
+
+        set pidsum_limit = 1000
+		set pidsum_limit_yaw = 1000
+
+    #$ OPTION END
+	
+	#$ OPTION BEGIN (CHECKED): Dynamic IDLE min RPM à 25 (meilleure gestion du propwash)
+
+        set dyn_idle_min_rpm = 25
+
+    #$ OPTION END
+	
+    #$ OPTION BEGIN (CHECKED): Réglage du RC Smoothing Auto Factor à 45 (recommandé)
+
+		set rc_smoothing_auto_factor = 45
+        set rc_smoothing_auto_factor_throttle = 45
+
+    #$ OPTION END
+	
+	#$ OPTION BEGIN (UNCHECKED): Réglage pour ESCs @ 48kHz (ou +)
+
+        set thrust_linear = 25
+
+    #$ OPTION END
+	
+    #$ OPTION BEGIN (UNCHECKED): Réglage du Sag compensation à 100
+
+		set vbat_sag_compensation = 100
+
+    #$ OPTION END
+	
+#$ OPTION_GROUP END
+
+simplified_tuning apply
