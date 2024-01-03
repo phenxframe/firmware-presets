@@ -18,25 +18,23 @@
 #$ DESCRIPTION: ### <br><b>Liste des options disponibles dans ce preset :</b>
 #$ DESCRIPTION:
 #$ DESCRIPTION: * Choix du protocole pour les ESCs & fréquence boucle PIDs.
-#$ DESCRIPTION: * Choix des niveaux de PIDs & filtrage.
+#$ DESCRIPTION: * Choix des PIDs.
 #$ DESCRIPTION: * Choix des optimisations diverses.
 #$ DESCRIPTION: 
 #$ DESCRIPTION:
 #$ DESCRIPTION: ### <br><b>Recommandations :</b>
 #$ DESCRIPTION:
 #$ DESCRIPTION: * Pour de meilleures performances: toujours appliquer le bon preset approprié selon votre lien Radio.
-#$ DESCRIPTION: * Si vous n'utilisez pas de <b>caméra HD</b>: n'oubliez pas de <b>centrer la lipo</b> sur votre top plate (afin d'obtenir un centre de gravité optimal).
+#$ DESCRIPTION: * Si vous n'utilisez pas de <b>caméra HD</b>: n'oubliez pas de <b>centrer au mieux la lipo</b> sur votre top plate (afin d'obtenir un centre de gravité optimal).
 #$ DESCRIPTION: * L'usage du <b>Filtre RPM</b> est <b>OBLIGATOIRE</b> pour ce preset ! (si votre ESC est en 'BLHeli_S', merci de le flasher sous <a href="https://esc-configurator.com/">Bluejay</a> afin de pouvoir en bénéficier.
 #$ DESCRIPTION: * Choisissez le protocole des ESCs et la fréquence de la boucle PID en fonction de votre <b>gyro</b>, du <b>microcontrolleur</b> de votre FC (attention: cocher UN seul choix à la fois !).
-#$ DESCRIPTION: * En fonction de la qualité de montage, <b>2 niveaux de filtrage et PIDs</b> sont disponibles :
-#$ DESCRIPTION: <br>- Standard: le degré de filtrage/PIDs recommandé (et appliqué) par défaut.
-#$ DESCRIPTION: <br>- Agressif: performances extrêmes (pour build très sain).
+#$ DESCRIPTION: * Plusieurs <b>options de PIDs</b> sont disponibles. Il vous faudra faire votre choix (obligatoire) en fonction de la caméra HD que vous utilisez (ou non).
 #$ DESCRIPTION:
 #$ DESCRIPTION:
 #$ DESCRIPTION: <br>Si vous avez le moindre problème, merci de joindre notre discord pour nous faire part de toute suggestion ou problème rencontré.
 #$ DESCRIPTION: <br>Nous serons ravis de vous apporter notre aide.
 #$ DESCRIPTION:
-#$ DESCRIPTION: <br>~ Discord : https://discord.com/invite/GutZA24r7Z
+#$ DESCRIPTION: <br>~ Discord : https://discord.gg/SaEaEf6wKn
 #$ DESCRIPTION:
 #$ DESCRIPTION: <br>Tuning réalisé et maintenu par <b>Feisar</b> (team <b>Phen X Frame</b>).
 
@@ -45,51 +43,55 @@
 
 #$ OPTION_GROUP BEGIN: CHOISIR <b>UN</b> PROTOCOLE ESC & FREQ BOUCLE PIDs :
 
-    #$ OPTION BEGIN (UNCHECKED): DSHOT600 - 8Khz (F7 & plus + gyro 8K)
-		
+    #$ OPTION BEGIN (UNCHECKED): DSHOT600 - 8kHz (F7 & plus + gyro 8K)
+
 		set pid_process_denom = 1
 		set motor_pwm_protocol = DSHOT600
-                
-    #$ OPTION END
 
-    #$ OPTION BEGIN (UNCHECKED): DSHOT300 - 4Khz (F4 et gyro 8K)
+    #$ OPTION END
 	
+    #$ OPTION BEGIN (UNCHECKED): DSHOT600 - 4kHz (F7 & plus + gyro 4K)
+
+		set pid_process_denom = 1
+		set motor_pwm_protocol = DSHOT600
+		set gyro_lpf2_static_hz = 850
+
+    #$ OPTION END	
+
+    #$ OPTION BEGIN (UNCHECKED): DSHOT300 - 4kHz (F4 et gyro 8K)
+
 		set pid_process_denom = 2
 		set motor_pwm_protocol = DSHOT300
-        
+		set gyro_lpf2_static_hz = 850
+
     #$ OPTION END
-	
-	#$ OPTION BEGIN (UNCHECKED): DSHOT300 - 3.2Khz (gyro BMI)
-	
+
+	#$ OPTION BEGIN (UNCHECKED): DSHOT300 - 3.2kHz (gyro BMI)
+
 		set pid_process_denom = 1
 		set motor_pwm_protocol = DSHOT300
-        
+
     #$ OPTION END
 
 #$ OPTION_GROUP END
 
-
-# ------[ PIDs Standard ]------
-
-set simplified_d_gain = 115
-set simplified_dmax_gain = 0
-set simplified_feedforward_gain = 50
-set simplified_pi_gain = 130
-set simplified_pitch_d_gain = 105
-set simplified_pitch_pi_gain = 105
-
-
 # ------[ Filtrage Standard ]------
 
-set dyn_notch_max_hz = 450
-set dyn_notch_min_hz = 120
+set dyn_notch_max_hz = 480
+set dyn_notch_min_hz = 100
 set gyro_lpf1_dyn_max_hz = 0
 set gyro_lpf1_dyn_min_hz = 0
 set gyro_lpf1_static_hz = 0
 set gyro_lpf2_static_hz = 0
-set simplified_dterm_filter_multiplier = 130
-set simplified_gyro_filter = OFF
+set dterm_lpf1_dyn_expo = 8
 set yaw_lowpass_hz = 0
+set simplified_dterm_filter_multiplier = 125
+set simplified_gyro_filter = OFF
+
+# ------[ Options Standard ]------
+
+set anti_gravity_gain = 100
+set iterm_relax_cutoff = 17
 
 #$ OPTION_GROUP BEGIN: TUNING :
 
@@ -105,24 +107,36 @@ set yaw_lowpass_hz = 0
 		set rpm_filter_q = 500
 
     #$ OPTION END
-	
+
     #$ OPTION BEGIN (UNCHECKED): Cocher si gyro BMI/ICM
 
-		set gyro_lpf2_static_hz = 650
+		set gyro_lpf2_static_hz = 850
 
     #$ OPTION END
 
-	#$ OPTION BEGIN (UNCHECKED): PIDs 'AGRESSIF'
- 
-		set simplified_master_multiplier = 110
+	#$ OPTION BEGIN (UNCHECKED): PIDs 'GoPro Session 4/5'
+
+		set profile_name = GP 4-5
+		set simplified_i_gain = 120
+		set simplified_d_gain = 85
+		set simplified_dmax_gain = 0
+		set simplified_feedforward_gain = 40
+		set simplified_pi_gain = 110
+		set simplified_pitch_d_gain = 115
+		set simplified_pitch_pi_gain = 115
 
     #$ OPTION END
 
-	#$ OPTION BEGIN (UNCHECKED): Filtrage 'AGRESSIF' (build sain requis)
-	
-		set simplified_dterm_filter_multiplier = 140
-        set rpm_filter_harmonics = 2
-		set dyn_notch_min_hz = 150
+	#$ OPTION BEGIN (UNCHECKED): PIDs 'GoPro Hero 11 (full-size)'
+
+		set profile_name = Hero 11
+		set simplified_i_gain = 120
+		set simplified_d_gain = 115
+		set simplified_dmax_gain = 0
+		set simplified_feedforward_gain = 50
+		set simplified_pi_gain = 130
+		set simplified_pitch_d_gain = 105
+		set simplified_pitch_pi_gain = 105
 
     #$ OPTION END 
 
@@ -136,32 +150,32 @@ set yaw_lowpass_hz = 0
 		set pidsum_limit_yaw = 1000
 
     #$ OPTION END
-	
-	#$ OPTION BEGIN (CHECKED): Dynamic IDLE min RPM à 25 (meilleure gestion du propwash)
 
-        set dyn_idle_min_rpm = 25
+	#$ OPTION BEGIN (CHECKED): Dynamic IDLE min RPM à 27 (meilleure gestion du propwash)
+
+        set dyn_idle_min_rpm = 27
 
     #$ OPTION END
-	
-    #$ OPTION BEGIN (CHECKED): Réglage du RC Smoothing Auto Factor à 45 (recommandé)
+
+    #$ OPTION BEGIN (CHECKED): RC Smoothing Auto Factor à 45 (recommandé pour ELRS/500Hz)
 
 		set rc_smoothing_auto_factor = 45
         set rc_smoothing_auto_factor_throttle = 45
 
     #$ OPTION END
-	
+
 	#$ OPTION BEGIN (UNCHECKED): Réglage pour ESCs @ 48kHz (ou +)
 
         set thrust_linear = 25
 
     #$ OPTION END
-	
+
     #$ OPTION BEGIN (UNCHECKED): Réglage du Sag compensation à 100
 
 		set vbat_sag_compensation = 100
 
     #$ OPTION END
-	
+
 #$ OPTION_GROUP END
 
 simplified_tuning apply
